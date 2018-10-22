@@ -7,6 +7,8 @@ router.route('/getLogin')
         var password = req.query.pass;
         console.log(req.query);
         db.query('SELECT * FROM firsttable WHERE name = ?',[email], function (error, results, fields) {
+          res.header("Access-Control-Allow-Origin", "*");
+          res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         if (error) {
           // console.log("error ocurred",error);
           res.send({
