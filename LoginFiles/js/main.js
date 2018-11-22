@@ -115,3 +115,36 @@ if(name && pass){
         })
         }
 }
+
+function signUp(){
+
+    let name=document.getElementById("uname").value;
+    let pass=document.getElementById("upass").value;
+    let num=document.getElementById("mnumber").value;
+    //  alert("success");   
+    console.log(name,'sdsd',pass);
+    // if(pass)
+    // window.location = "https://www.youtube.com/watch?v=ulNswX3If6U";
+    let url="http://localhost:3000/login/signUp?";
+    if(name && pass){
+        url+="name="+name+"&pass="+pass+"&number="+num;
+        axios.get(url)
+        .then((data)=>{
+             data=JSON.parse(data.request.response);
+            console.log(data);
+       let mes;
+            if(data.code=='200'){
+                 mes="User Created Successfully";
+            }
+            else{
+                mes="Sorry!!!Please try again after some time";
+            }
+    
+            document.getElementById('message').innerHTML=mes;
+            console.log(document.getElementById('message').value)
+        })
+            .catch((err)=>{
+                console.log(err);
+            })
+            }
+    }

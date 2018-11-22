@@ -6,11 +6,11 @@ router.route('/getLogin')
         var email= req.query.name;
         var password = req.query.pass;
         console.log(req.query);
-        db.query('SELECT * FROM firsttable WHERE name = ?',[email], function (error, results, fields) {
+        db.query('SELECT * FROM users WHERE name = ?',[email], function (error, results, fields) {
           res.header("Access-Control-Allow-Origin", "*");
           res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         if (error) {
-          // console.log("error ocurred",error);
+          console.log("error ocurred",error);
           res.send({
             "code":400,
             "failed":error
@@ -40,6 +40,43 @@ router.route('/getLogin')
           }
         }
         });
+     
+
+
+    });
+
+    router.route('/signUp')
+    .get(function (req, res) {
+        var email= req.query.name;
+        var password = req.query.pass;
+        let num=req.query.number;
+        console.log(req.query);
+        // db.connect(function(err) {
+        //   if (err) throw err;
+        //   console.log("Connected!");
+          var sql = `INSERT INTO users VALUES ('${email}','${password}','${num}')`;
+          console.log(sql);
+          db.query(sql,function (err, result) {
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+            if (err) {
+              res.send({
+                "code":204,
+                "success":"Error while accessing DB"
+                  });
+              console.log(err); 
+            }
+            else{
+              res.send({
+                "code":200,
+                "success":"login sucessfull"
+                  });
+              console.log("1 record inserted");
+            }
+            
+          });
+        // });
+
      
 
 
